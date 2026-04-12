@@ -194,7 +194,4 @@ export default class Tree {
     this.root = this.buildTree(currentValues);
   }
 
-  
-
-
 }
