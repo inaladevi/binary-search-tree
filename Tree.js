@@ -59,15 +59,19 @@ export default class Tree {
     }
   }
 
-  deleteItem(value, current = this.root) {
+  deleteItem(value) {
+    this.root = this._deleteNode(value, this.root);
+  }
+
+  _deleteNode(value, current) {
     if (current === null) {
       return current;
     }
 
     if (value < current.data) {
-      current.left = this.deleteItem(value, current.left);
+      current.left = this._deleteNode(value, current.left);
     } else if (value > current.data) {
-      current.right = this.deleteItem(value, current.right);
+      current.right = this._deleteNode(value, current.right);
     } else {
       if (current.left === null) {
         return current.right;
@@ -79,7 +83,7 @@ export default class Tree {
           successor = successor.left;
         }
         current.data = successor.data;
-        current.right = this.deleteItem(successor.data, current.right);
+        current.right = this._deleteNode(successor.data, current.right);
       }
     }
     return current;
@@ -193,5 +197,4 @@ export default class Tree {
     this.inOrderForEach((value) => currentValues.push(value));
     this.root = this.buildTree(currentValues);
   }
-
 }
